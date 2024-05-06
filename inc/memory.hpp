@@ -19,18 +19,10 @@ public:
     }
 
     void* read(uint64_t index, uint64_t size) {
-        if (max_memory_index >= index + size) { 
-            return nullptr;
-        }
-
         return (void*)(&mem[size]);
     }
     
-    [[nodiscard]]
-    void* write(uint64_t index, uint64_t size, uint8_t* value) { 
-        if (max_memory_index >= index + size) { 
-            return nullptr;
-        }
+    void write(uint64_t index, uint8_t* value, uint64_t size) { 
         for (int i = 0; i < size; i++) {
             mem[index + i] = value[i];
         }   
