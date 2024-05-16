@@ -9,13 +9,13 @@ set(CMAKE_CXX_STANDARD_REQUIRED     ON)
 set(CMAKE_C_EXTENSIONS              OFF)
 set(CMAKE_CXX_EXTENSIONS            OFF)
 
-
 find_package(cxxopts CONFIG REQUIRED)
 find_package(spdlog CONFIG REQUIRED)
 
 include_directories(${CMAKE_SOURCE_DIR}/inc)
 
-add_executable(${PROJ_NAME} main.cpp)
+add_executable(${PROJ_NAME} main.cpp
+                            src/args/parser.cpp)
 
 target_link_libraries(${PROJ_NAME} PRIVATE spdlog::spdlog)
 target_link_libraries(${PROJ_NAME} PRIVATE cxxopts::cxxopts)
