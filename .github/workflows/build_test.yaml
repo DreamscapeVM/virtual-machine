@@ -1,0 +1,32 @@
+name: All Unit Test
+
+on:
+  pull_request:
+    branches: 
+      - '*'
+  push:
+    branches: [ 'feature/integrate-github' ] # only for test.
+    
+    
+    
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+      name: Checkout
+        
+    - name: Install Package
+      shell: bash
+      run: |
+        apt update && \
+        apt install -y clang-17 git cmake ninja-build \
+                       curl zip unzip tar build-essential pkg-config
+        
+    - name: Install vcpkg
+      shell: bash
+      run: make vcpkg
+    
+    - name: Build and Test
+      shell: bash
+      run: make test
