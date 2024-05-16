@@ -1,2 +1,5 @@
 build/
 3rdparty/
+vcpkg/
+scripts/
+vcpkg_installed/
