@@ -10,3 +10,8 @@ configure:
 
 clean: 
 	rm -rf build
+
+vcpkg:
+	git clone https://github.com/microsoft/vcpkg ./3rdparty/vcpkg
+	./3rdparty/vcpkg/bootstrap-vcpkg.sh
+	./3rdparty/vcpkg/vcpkg install
