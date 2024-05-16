@@ -24,8 +24,10 @@ test:
 
 	cd build && \
 		cmake -DCMAKE_TOOLCHAIN_FILE=../3rdparty/vcpkg/scripts/buildsystems/vcpkg.cmake \
-		-DCMAKE_C_COMPILER=$(shell which clang) \
-		-DCMAKE_CXX_COMPILER=$(shell which clang++) \
+		-DCMAKE_C_COMPILER=clang \
+		-DCMAKE_CXX_COMPILER=clang++ \
+		-DCMAKE_BUILD_TYPE=Release \
 		-DUSE_GTEST=ON \
 		-GNinja .. && \
-	ninja test
+		ninja && \
+		ninja test
