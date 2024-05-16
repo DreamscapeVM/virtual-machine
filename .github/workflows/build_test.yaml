@@ -10,7 +10,7 @@ on:
     
     
 jobs:
-  ci:
+  UnitTest:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
@@ -19,9 +19,9 @@ jobs:
     - name: Install Package
       shell: bash
       run: |
-        apt update && \
-        apt install -y clang-17 git cmake ninja-build \
-                       curl zip unzip tar build-essential pkg-config
+        sudo apt update && \
+        sudo apt install -y clang-17 git cmake ninja-build \
+                              curl zip unzip tar build-essential pkg-config
         
     - name: Install vcpkg
       shell: bash
