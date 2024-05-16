@@ -21,8 +21,11 @@ jobs:
       shell: bash
       run: |
         sudo apt update && \
-        sudo apt install -y clang-17 git cmake ninja-build \
+        sudo apt install -y git cmake ninja-build wget \
                               curl zip unzip tar build-essential pkg-config
+        wget https://apt.llvm.org/llvm.sh
+        chmod +x ./llvm.sh
+        sudo ./llvm.sh 17 all
         
     - name: Install vcpkg
       shell: bash
