@@ -15,7 +15,7 @@ ENV CC clang-17
 
 RUN mkdir build && \ 
     cd build && \
-    cmake -G Ninja .. && \
+    cmake .. -DCMAKE_TOOLCHAIN_FILE=./scripts/vcpkg/scripts/buildsystems/vcpkg.cmake -G Ninja && \
     ninja
-    
+
 RUN rm -rf /var/lib/apt/lists/*

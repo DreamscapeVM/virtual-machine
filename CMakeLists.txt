@@ -1,4 +1,5 @@
 SET(PROJ_NAME VirtualComputer)
+cmake_minimum_required(VERSION 3.25)
 project(${PROJ_NAME})
 
 set(CMAKE_C_STANDARD                99)
@@ -8,6 +9,9 @@ set(CMAKE_CXX_STANDARD_REQUIRED     ON)
 set(CMAKE_C_EXTENSIONS              OFF)
 set(CMAKE_CXX_EXTENSIONS            OFF)
 
+# message(${CMAKE_SOURCE_DIR}/scripts/vcpkg/scripts/buildsystems/vcpkg.cmake)
+# SET(CMAKE_TOOLCHAIN_FILE ${CMAKE_SOURCE_DIR}/scripts/vcpkg/scripts/buildsystems/vcpkg.cmake)
+
 find_package(cxxopts CONFIG REQUIRED)
 find_package(spdlog CONFIG REQUIRED)
 
@@ -16,3 +20,4 @@ include_directories(${CMAKE_SOURCE_DIR}/inc)
 add_executable(${PROJ_NAME} main.cpp)
 
 target_link_libraries(${PROJ_NAME} PRIVATE spdlog::spdlog)
+target_link_libraries(${PROJ_NAME} PRIVATE cxxopts::cxxopts)

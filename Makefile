@@ -1,13 +1,12 @@
 .PHONY: build deploy configure
 
-build:
+configure:
 	if ! [ -d "build" ]; then \
 		mkdir build; \
 	fi
 
 	cd build && \
-		cmake .. && \
-		ninja -j$(shell sysctl -n hw.physicalcpu)
+		cmake .. -DCMAKE_TOOLCHAIN_FILE=./scripts/vcpkg/scripts/buildsystems/vcpkg.cmake -G Ninja
 
 clean: 
 	rm -rf build
