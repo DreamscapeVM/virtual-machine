@@ -18,6 +18,10 @@ vcpkg:
 	./3rdparty/vcpkg/vcpkg install
 
 test:
+	if ! [ -d "build" ]; then \
+		mkdir build; \
+	fi
+	
 	cd build && \
 		cmake -DCMAKE_TOOLCHAIN_FILE=../3rdparty/vcpkg/scripts/buildsystems/vcpkg.cmake \
 		-DUSE_GTEST=ON \
