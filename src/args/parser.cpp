@@ -28,8 +28,8 @@ const args::arguments parse_argument(int argc, char** argv) {
     auto ips = result["insturction_per_seconds"].as<uint64_t>();
 
     return args::arguments { 
-        max_memory_size: mem,
-        insturction_per_seconds: ips
+        .max_memory_size = mem,
+        .insturction_per_seconds = ips
     };
 
 }
