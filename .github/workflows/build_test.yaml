@@ -1,0 +1,36 @@
+name: All Unit Test
+
+on:
+  pull_request:
+    branches: 
+      - '*'
+#   push:
+    # branches: [ 'feature/integrate-github' ] # only for test.
+    
+    
+    
+jobs:
+  UnitTest:
+    runs-on: ubuntu-24.04
+
+    steps:
+    - uses: actions/checkout@v4
+      name: Checkout
+        
+    - name: Install Package
+      shell: bash
+      run: |
+        sudo apt update && \
+        sudo apt install -y git cmake ninja-build wget \
+                              curl zip unzip tar build-essential pkg-config
+        wget https://apt.llvm.org/llvm.sh
+        chmod +x ./llvm.sh
+        sudo ./llvm.sh 17 all
+        
+    - name: Install vcpkg
+      shell: bash
+      run: make vcpkg
+    
+    - name: Build and Test
+      shell: bash
+      run: make test
