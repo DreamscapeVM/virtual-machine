@@ -4,8 +4,8 @@ on:
   pull_request:
     branches: 
       - '*'
-  push:
-    branches: [ 'feature/integrate-github' ] # only for test.
+#   push:
+    # branches: [ 'feature/integrate-github' ] # only for test.
     
     
     
