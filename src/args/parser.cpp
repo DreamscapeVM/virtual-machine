@@ -23,10 +23,9 @@ const args::arguments parse_argument(int argc, char** argv) {
       std::cout << options.help() << std::endl;
       exit(0);
     }
+
     auto mem = result["max_memory_size"].as<uint64_t>();
     auto ips = result["insturction_per_seconds"].as<uint64_t>();
-    
-    
 
     return args::arguments { 
         max_memory_size: mem,

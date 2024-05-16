@@ -2,7 +2,7 @@ SET(PROJ_NAME virtual-machine)
 cmake_minimum_required(VERSION 3.25)
 project(${PROJ_NAME})
 
-set(CMAKE_C_STANDARD                99)
+set(CMAKE_C_STANDARD                14)
 set(CMAKE_CXX_STANDARD              14)
 set(CMAKE_C_STANDARD_REQUIRED       ON)
 set(CMAKE_CXX_STANDARD_REQUIRED     ON)
@@ -14,7 +14,7 @@ find_package(spdlog CONFIG REQUIRED)
 
 include_directories(${CMAKE_SOURCE_DIR}/inc)
 
-add_executable(${PROJ_NAME} main.cpp
+add_executable(${PROJ_NAME} src/main.cpp
                             src/args/parser.cpp)
 
 target_link_libraries(${PROJ_NAME} PRIVATE spdlog::spdlog)
