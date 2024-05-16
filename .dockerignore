@@ -3,3 +3,4 @@ build/
 vcpkg/
 scripts/
 vcpkg_installed/
+Dockerfile

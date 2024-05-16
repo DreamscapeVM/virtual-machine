@@ -6,7 +6,8 @@ configure:
 	fi
 
 	cd build && \
-		cmake .. -DCMAKE_TOOLCHAIN_FILE=./scripts/vcpkg/scripts/buildsystems/vcpkg.cmake -G Ninja
+		cmake -DCMAKE_TOOLCHAIN_FILE=../3rdparty/vcpkg/scripts/buildsystems/vcpkg.cmake \
+		-GNinja .. 
 
 clean: 
 	rm -rf build

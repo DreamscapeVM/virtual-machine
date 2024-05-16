@@ -1,4 +1,4 @@
-SET(PROJ_NAME VirtualComputer)
+SET(PROJ_NAME virtual-machine)
 cmake_minimum_required(VERSION 3.25)
 project(${PROJ_NAME})
 
@@ -9,8 +9,6 @@ set(CMAKE_CXX_STANDARD_REQUIRED     ON)
 set(CMAKE_C_EXTENSIONS              OFF)
 set(CMAKE_CXX_EXTENSIONS            OFF)
 
-# message(${CMAKE_SOURCE_DIR}/scripts/vcpkg/scripts/buildsystems/vcpkg.cmake)
-# SET(CMAKE_TOOLCHAIN_FILE ${CMAKE_SOURCE_DIR}/scripts/vcpkg/scripts/buildsystems/vcpkg.cmake)
 
 find_package(cxxopts CONFIG REQUIRED)
 find_package(spdlog CONFIG REQUIRED)
