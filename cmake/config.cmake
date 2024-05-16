@@ -1,0 +1,1 @@
+SET(USE_GTEST ON)
