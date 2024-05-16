@@ -7,8 +7,7 @@ build:
 
 	cd build && \
 		cmake .. && \
-		make -j$(shell sysctl -n hw.physicalcpu)
-
+		ninja -j$(shell sysctl -n hw.physicalcpu)
 
 clean: 
 	rm -rf build
