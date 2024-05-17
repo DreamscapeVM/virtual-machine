@@ -22,15 +22,18 @@ find_package(spdlog CONFIG REQUIRED)
 
 include_directories(${CMAKE_SOURCE_DIR}/inc)
 
+SET (SRC_PARSER             src/args/parser.cpp)
+SET (SRC_SYSTEM             src/system/memory.cpp src/system/cpu.cpp)
+SET (SRC_ISA                src/isa/instruction.cpp)
+SET (SRC_FUNDAMENTAL_ISA     src/isa/fundamental/delegate.cpp )
+
+
+
 if (NOT USE_GTEST)
     add_executable(${PROJ_NAME} src/main.cpp
-                                src/system/memory.cpp
-                                src/system/cpu.cpp
-                                src/args/parser.cpp
-                                src/isa/fundamental/delegate.cpp
-                                src/isa/instruction.cpp)
+                                ${SRC_PARSER} ${SRC_SYSTEM} ${SRC_ISA} ${SRC_FUNDAMENTAL_ISA})
 else()
-    add_library(${PROJ_NAME} src/args/parser.cpp)
+    add_library(${PROJ_NAME}    ${SRC_PARSER} ${SRC_SYSTEM} ${SRC_ISA} ${SRC_FUNDAMENTAL_ISA})
     include(${CMAKE_SOURCE_DIR}/cmake/tests/args.cmake)
 endif()
 
