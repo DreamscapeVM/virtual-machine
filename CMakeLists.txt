@@ -24,7 +24,8 @@ include_directories(${CMAKE_SOURCE_DIR}/inc)
 if (NOT USE_GTEST)
     add_executable(${PROJ_NAME} src/main.cpp
                                 src/system/memory.cpp
-                                src/args/parser.cpp)
+                                src/args/parser.cpp
+                                src/isa/fundamental/delegate.cpp)
 else()
     add_library(${PROJ_NAME} src/args/parser.cpp)
     include(${CMAKE_SOURCE_DIR}/cmake/tests/args.cmake)

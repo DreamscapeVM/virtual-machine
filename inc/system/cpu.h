@@ -8,12 +8,14 @@
 class cpu { 
 private:
     uint64_t pc;
+
+
 public:
     std::array<uint8_t, 8> reg;
 
-    void execute(instruction* data) {
+    void execute(const instruction* const data) {
         if (data->id == 0){
-            auto p = static_cast<add<int>*>(data);
+            auto p = (add<int>*)(data);
             reg[p->output] = reg[p->lvalue] + reg[p->rvalue];
         }
     }

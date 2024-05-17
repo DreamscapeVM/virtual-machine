@@ -4,9 +4,10 @@
 #include <isa/instruction.h>
 #include <isa/fundamental/set.h>
 
-template<typename T, typename OPS = Add<T>>
-struct OperatorAdd : isa_operator {
-    
-};
+// template<typename T, typename OPS = add<T>>
+// struct operator_add : isa_operator {
+//     using type = T
+//     void execute(T* cache, uint8_t* mem);
+// };
 
 #endif

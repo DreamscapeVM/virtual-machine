@@ -3,7 +3,7 @@
 const uint64_t memory::get_memory_size() const { 
     return max_memory_size;
 }
-const uint8_t* memory::get_memory() const {
+uint8_t* const memory::get_memory() const {
     return mem;
 }
 

@@ -2,33 +2,41 @@
 #define __INCLUDE_ISA_INSTUCTION_H
 
 #include <cstdint>
-// #include <array>
-// need to consider array.
-// template<typename T>
-// struct from_mem_to_value { 
-//     static const T* get(const uint8_t* const mem, uint64_t pos) { 
-//         return (fundamental_type<T>::type)mem[pos];
-//     }
-//     static const void set(const uint8_t* mem, uint64_t pos, const T value) { 
-//         for (int i = 0; i < sizeof(T); i++) {
-//             mem[pos + i] = ((uint8_t*)&value)[i];
-//         }
-//     }
-// };
+#include <vector>
+#include <memory>
 
 template<typename T>
 struct size_of_instruction { 
     static constexpr uint8_t size = sizeof(T);
 };
 
-struct instriction { 
+struct instruction { 
     uint8_t id;
-    void execute() {}
 };
 
-struct isa_operator {
-    
+class instruction_factory_delegate {
+public:
+    virtual uint8_t get_total_instuction_size() const = 0;
+    virtual std::string get_isa_name() const = 0;
+    virtual std::string get_instruction_name(uint8_t id) const = 0;
+    virtual instruction generate(const uint8_t id, const uint64_t pc, const uint8_t* const mem) const = 0;
 };
+
+class instruction_factory { 
+private:
+    // std::vector<std::unique_ptr<instruction_factory_delegate>> delegates;
+
+public:
+    void init() { 
+    }
+
+    const instruction* const get(const uint64_t pc, const uint8_t* const mem) const { 
+        uint8_t inst = mem[pc];
+        return (const instruction* const)(&mem[pc]);
+    }
+};
+
+
 
 
 #endif

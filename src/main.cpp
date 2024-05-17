@@ -11,14 +11,21 @@ int main() {
   c.reg[2] = 40;
 
   d.init(1024*1024);
-  add<int> i;
-  i.id = 0;
-  i.lvalue = 1;
-  i.rvalue = 2;
-  i.output = 3;
+  instruction_factory instf;
+  add<int> p;
+  p.id = 0;
+  p.lvalue = 1;
+  p.rvalue = 2;
+  p.output = 3;
 
-  c.execute(&i);
+  auto mem = d.get_memory();
+  for (int i = 0; i < size_of_instruction<add<int>>::size; i++) { 
+     mem[i] = ((uint8_t*)&p)[i];
+  }
   
+  auto inst = instf.get(0, d.get_memory());
+  c.execute(inst);
+
   spdlog::info("value : {}", c.reg[0]);
   spdlog::info("value : {}", c.reg[1]);
   spdlog::info("value : {}", c.reg[2]);

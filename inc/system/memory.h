@@ -9,7 +9,7 @@ private:
     uint8_t* mem;
 public:
     const uint64_t get_memory_size() const;
-    const uint8_t* get_memory() const;
+    uint8_t* const get_memory() const;
     void init(uint64_t size);
     void deinit();
 };
