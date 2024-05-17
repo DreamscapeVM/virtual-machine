@@ -29,4 +29,16 @@ OPS_NAME(store) {
     }
 }
 
+template<typename T>
+OPS_NAME(equal_condition) {
+    auto self = (fundamental_isa::isa_equal_condition<T>*)inst;
+    for (uint64_t i = 0; i < fundamental_isa::isa_equal_condition<T>::size; i++) { 
+        if (*((uint8_t*)(((T*)reg) + self->lreg) + i) != *((uint8_t*)(((T*)reg) + self->rreg) + i)) { 
+            reg[0] = self->false_pc;
+            return;
+        }
+    }
+    reg[0] = self->true_pc;
+}
+
 }

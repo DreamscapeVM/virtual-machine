@@ -34,16 +34,17 @@ public:
     }
 
     void entry(int pc) {
-        reg[1] = 30;
-        reg[2] = 40;
+        reg[0] = pc;
+        reg[1] = 0;
+        reg[2] = 1;
+        reg[3] = 15;
 
         while (true) { 
-            auto inst = get_instruction(pc, mem.get_memory());
-            pc += engine.get_instruction_size_in_instruction(inst->id);
+            auto inst = get_instruction(reg[0], mem.get_memory());
+            reg[0] += engine.get_instruction_size_in_instruction(inst->id);
 
             execute(inst);
-            spdlog::info("pc : {}, reg : [{}, {}, {}, {}, {}, {}, {}, {}]", 
-                    pc,
+            spdlog::info("reg : [{}, {}, {}, {}, {}, {}, {}, {}]", 
                     reg[0],
                     reg[1],
                     reg[2],

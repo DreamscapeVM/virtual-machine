@@ -32,6 +32,16 @@ ISA_NAME(store) {
     uint64_t target;
 };
 
+template<typename T>
+ISA_NAME(equal_condition) { 
+    static constexpr int size = sizeof(T);
+    uint8_t lreg;
+    uint8_t rreg;
+    uint64_t true_pc;
+    uint64_t false_pc;
+};
+
+
 }
 
 #pragma pack(pop)

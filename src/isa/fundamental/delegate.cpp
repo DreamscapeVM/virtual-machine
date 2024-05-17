@@ -20,6 +20,11 @@ fundamental_instruction_delegate::fundamental_instruction_delegate(const uint8_t
     MAKE_PUSH(MAKE_ADD_TYPE(store, uint16_t));
     MAKE_PUSH(MAKE_ADD_TYPE(store, uint32_t));
     MAKE_PUSH(MAKE_ADD_TYPE(store, uint64_t));
+    MAKE_PUSH(MAKE_ADD_TYPE(equal_condition, uint8_t));
+    MAKE_PUSH(MAKE_ADD_TYPE(equal_condition, uint16_t));
+    MAKE_PUSH(MAKE_ADD_TYPE(equal_condition, uint32_t));
+    MAKE_PUSH(MAKE_ADD_TYPE(equal_condition, uint64_t));
+    
 }
 
 uint8_t fundamental_instruction_delegate::get_total_instuction_size() const {
