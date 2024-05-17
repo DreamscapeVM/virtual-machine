@@ -4,6 +4,10 @@
 #include <cstdint>
 #include <vector>
 #include <memory>
+#include <functional>
+
+#define OPS_NAME(NAME) void ops_##NAME(instruction* inst, uint32_t* reg, uint8_t* mem)
+#define ISA_NAME(NAME) struct isa_##NAME : public instruction
 
 template<typename T>
 struct size_of_instruction { 
@@ -12,12 +16,17 @@ struct size_of_instruction {
 
 struct instruction { 
     uint8_t id;
+    // virtual void execute(uint32_t* reg, uint8_t* mem) const = 0;
 };
 
 class instruction_delegate {
 public:
+    using ops_func = std::function<void(instruction*, uint32_t*, uint8_t*)>;
+
+public:
     virtual uint8_t get_total_instuction_size() const = 0;
     virtual uint8_t get_instruction_size(uint8_t id) const = 0;
+    virtual ops_func get_ops(uint8_t id) = 0;
     virtual ~instruction_delegate() = default;
     // virtual ~instruction_delegate() = 0;
     // virtual std::string get_isa_name() const = 0;

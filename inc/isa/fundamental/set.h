@@ -7,32 +7,34 @@
 #pragma pack(push, 1)
 
 namespace fundamental_isa { 
-    
-struct exit : public instruction {};
 
-template<typename T>
-struct add : public instruction { 
-    T lvalue;
-    T rvalue;
-    T output;
+ISA_NAME(exit) {
 };
 
 template<typename T>
-struct mov : public instruction { 
-    T value;
-    T target;
+ISA_NAME(add) { 
+    uint8_t lvalue;
+    uint8_t rvalue;
+    uint8_t output;
 };
 
-struct load : public instruction { 
-    uint8_t reg;
-    uint64_t target;
-};
+// template<typename T>
+// struct mov : public instruction { 
+//     T value;
+//     T target;
+// };
 
-struct store : public instruction { 
-    uint8_t reg;
-    uint64_t mem;
-};
-};
+// struct load : public instruction { 
+//     uint8_t reg;
+//     uint64_t target;
+// };
+
+// struct store : public instruction { 
+//     uint8_t reg;
+//     uint64_t mem;
+// };
+
+}
 
 #pragma pack(pop)
 #endif

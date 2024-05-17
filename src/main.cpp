@@ -6,60 +6,26 @@
 
 int main() {  
   cpu c;
-  memory d;
-  c.reg[1] = 30;
-  c.reg[2] = 40;
+  c.init();
 
-  d.init(1024*1024);
-  instruction_factory instf;
-  auto dd = std::vector<std::unique_ptr<instruction_delegate>>();
-  dd.push_back(std::make_unique<fundamental_isa::fundamental_instruction_delegate>());
-  instf.init(std::move(dd));
-
-  fundamental_isa::add<int> p;
+  fundamental_isa::isa_add<int> p;
   p.id = 1;
   p.lvalue = 1;
   p.rvalue = 1;
   p.output = 1;
 
-  fundamental_isa::exit e;
+  fundamental_isa::isa_exit e;
   e.id = 0;
+  
+  std::vector<instruction*> code;
+  code.push_back(&p);
+  code.push_back(&p);
+  code.push_back(&e);
 
-  // from program code like assembly to memory
-  auto mem = d.get_memory();
-  int pc = 0;
-  for (int x = 0; x < 10; x++) { 
-    auto size = instf.get_instruction_size_in_instruction(p.id);
-    for (int i = 0; i < size; i++) { 
-      mem[pc + i] = ((uint8_t*)&p)[i];
-    }
-    pc += size;
-  }
-
-  auto size = instf.get_instruction_size_in_instruction(e.id);
-  for (int i = 0; i < size; i++) { 
-    mem[pc + i] = ((uint8_t*)&e)[i];
-  }
+  c.add_software(0, code);
 
   // execute code by exit.
-  pc = 0;
-  for (int i = 0; i < 10; i++) { 
-    auto inst = instf.get_instruction(pc, d.get_memory());
-    pc += instf.get_instruction_size_in_memory(pc, d.get_memory());
-    c.execute(inst);
-    spdlog::info("pc : {}, reg : [{}, {}, {}, {}, {}, {}, {}, {}]", 
-                      pc,
-                      c.reg[0],
-                      c.reg[1],
-                      c.reg[2],
-                      c.reg[3],
-                      c.reg[4],
-                      c.reg[5],
-                      c.reg[6], 
-                      c.reg[7]);
-
-  }
-  
+  c.entry(0);
   
 
   return 0;
