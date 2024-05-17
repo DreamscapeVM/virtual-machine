@@ -6,6 +6,10 @@
 
 #pragma pack(push, 1)
 
+namespace fundamental_isa { 
+    
+struct exit : public instruction {};
+
 template<typename T>
 struct add : public instruction { 
     T lvalue;
@@ -28,7 +32,7 @@ struct store : public instruction {
     uint8_t reg;
     uint64_t mem;
 };
+};
 
 #pragma pack(pop)
-
 #endif

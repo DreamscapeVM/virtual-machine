@@ -15,7 +15,9 @@ public:
 
     void execute(const instruction* const data) {
         if (data->id == 0){
-            auto p = (add<int>*)(data);
+            exit(0);
+        }else if (data->id == 1) { 
+            auto p = (fundamental_isa::add<int>*)(data);
             reg[p->output] = reg[p->lvalue] + reg[p->rvalue];
         }
     }

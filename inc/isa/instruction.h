@@ -42,8 +42,11 @@ public:
         uint8_t inst = mem[pc];
         return (const instruction* const)(&mem[pc]);
     }
-    const uint8_t get_instruction_size(const uint64_t pc, const uint8_t* const mem) const { 
+    const uint8_t get_instruction_size_in_memory(const uint64_t pc, const uint8_t* const mem) const { 
         return instruct[mem[pc]];
+    }
+    const uint8_t get_instruction_size_in_instruction(const uint8_t id) const { 
+        return instruct[id];
     }
 };
 
