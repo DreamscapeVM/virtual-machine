@@ -18,21 +18,19 @@ ISA_NAME(add) {
     uint8_t output;
 };
 
-// template<typename T>
-// struct mov : public instruction { 
-//     T value;
-//     T target;
-// };
+template<int S>
+struct load : public instruction { 
+    static constexpr int size = S;
+    uint8_t reg;
+    uint64_t target;
+};
 
-// struct load : public instruction { 
-//     uint8_t reg;
-//     uint64_t target;
-// };
-
-// struct store : public instruction { 
-//     uint8_t reg;
-//     uint64_t mem;
-// };
+template<int S>
+struct store : public instruction { 
+    static constexpr int size = S;
+    uint8_t reg;
+    uint64_t mem;
+};
 
 }
 

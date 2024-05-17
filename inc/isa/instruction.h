@@ -6,7 +6,7 @@
 #include <memory>
 #include <functional>
 
-#define OPS_NAME(NAME) void ops_##NAME(instruction* inst, uint32_t* reg, uint8_t* mem)
+#define OPS_NAME(NAME) void ops_##NAME(const instruction* const inst, uint32_t* reg, uint8_t* mem)
 #define ISA_NAME(NAME) struct isa_##NAME : public instruction
 
 template<typename T>
@@ -21,7 +21,7 @@ struct instruction {
 
 class instruction_delegate {
 public:
-    using ops_func = std::function<void(instruction*, uint32_t*, uint8_t*)>;
+    using ops_func = std::function<void(const instruction* const , uint32_t*, uint8_t*)>;
 
 public:
     virtual uint8_t get_total_instuction_size() const = 0;
@@ -35,14 +35,14 @@ public:
 
 class instruction_factory { 
 private:
-    std::vector<uint8_t> instruct;
+    std::vector<std::pair<uint8_t, instruction_delegate::ops_func>> instruct;
 
 public:
     void init(std::vector<std::unique_ptr<instruction_delegate>> delegates) { 
         for (const auto& d : delegates) { 
             int size = d->get_total_instuction_size();
             for (int i = 0; i < size; i++) {
-                instruct.push_back(d->get_instruction_size(i));
+                instruct.push_back(std::make_pair(d->get_instruction_size(i), d->get_ops(i)));
             }
         }
     }
@@ -52,10 +52,13 @@ public:
         return (const instruction* const)(&mem[pc]);
     }
     const uint8_t get_instruction_size_in_memory(const uint64_t pc, const uint8_t* const mem) const { 
-        return instruct[mem[pc]];
+        return instruct[mem[pc]].first;
     }
     const uint8_t get_instruction_size_in_instruction(const uint8_t id) const { 
-        return instruct[id];
+        return instruct[id].first;
+    }
+    const instruction_delegate::ops_func get_ops(const uint8_t id) const { 
+        return instruct[id].second;
     }
 };
 

@@ -24,7 +24,7 @@ public:
     }
 
     void execute(const instruction* const data) {
-        // data->execute(reg.data(), nullptr);
+        instf.get_ops(data->id)(data, reg.data(), mem.get_memory());
     }
 
     void entry(int pc) {
@@ -57,7 +57,7 @@ public:
             m[entry_point + s] = ((uint8_t*)&(*data))[s];
         }
 
-        return pc + size;
+        return size;
     }
 
     const int add_software(const uint32_t pc, std::vector<instruction*> data) { 

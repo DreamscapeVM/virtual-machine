@@ -12,6 +12,7 @@ fundamental_instruction_delegate::fundamental_instruction_delegate() {
     MAKE_PUSH(MAKE_ADD(exit));
     MAKE_PUSH(MAKE_ADD_TYPE(add, int));
     MAKE_PUSH(MAKE_ADD_TYPE(add, float));
+    
 }
 
 uint8_t fundamental_instruction_delegate::get_total_instuction_size() const {
