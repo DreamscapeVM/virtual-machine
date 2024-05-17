@@ -5,28 +5,13 @@
 
 class memory { 
 private:
+    uint64_t max_memory_size = 0;
     uint8_t* mem;
-    uint8_t max_memory_index = 0;
-
 public:
+    const uint64_t get_memory_size() const;
+    const uint8_t* get_memory() const;
     void init(uint64_t size);
     void deinit();
-    uint8_t* read(uint64_t index) const;
-
-    template<typename T>
-    void pwrite(uint64_t index, const T* const value) { 
-
-        for (int i = 0; i < sizeof(T); i++) {
-            mem[index + i] = ((uint8_t*)(value))[i];
-        }   
-    }
-
-    template<typename T>
-    void write(uint64_t index, T value) {
-        for (int i = 0; i < sizeof(T); i++) {
-            mem[index + i] = ((uint8_t*)&value)[i];
-        }   
-    }
 };
 
 
