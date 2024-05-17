@@ -18,18 +18,18 @@ ISA_NAME(add) {
     uint8_t output;
 };
 
-template<int S>
-struct load : public instruction { 
-    static constexpr int size = S;
+template<typename T>
+ISA_NAME(load) { 
+    static constexpr int size = sizeof(T);
     uint8_t reg;
     uint64_t target;
 };
 
-template<int S>
-struct store : public instruction { 
-    static constexpr int size = S;
+template<typename T>
+ISA_NAME(store) { 
+    static constexpr int size = sizeof(T);
     uint8_t reg;
-    uint64_t mem;
+    uint64_t target;
 };
 
 }

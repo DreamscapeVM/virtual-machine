@@ -54,7 +54,7 @@ public:
 
         auto size = instf.get_instruction_size_in_instruction(data->id);
         for (int s = 0; s < size; s++) { 
-            m[entry_point + s] = ((uint8_t*)&(*data))[s];
+            m[entry_point + s] = ((uint8_t*)data)[s];
         }
 
         return size;

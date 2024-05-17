@@ -19,13 +19,35 @@ int main() {
 
   fundamental_isa::isa_exit e;
   e.id = 0;
-  
+
+  fundamental_isa::isa_store<uint32_t> s;
+  s.id = 4;
+  s.reg = 1;
+  s.target = 0;
+
+  fundamental_isa::isa_load<uint32_t> l;
+  l.id = 3;
+  l.reg = 2;
+  l.target = 0;
+
   add_instruct(pc, p, c);
   add_instruct(pc, p, c);
   add_instruct(pc, p, c);
   add_instruct(pc, p, c);
   add_instruct(pc, p, c);
   add_instruct(pc, p, c);
+  add_instruct(pc, p, c);
+  add_instruct(pc, s, c);
+  add_instruct(pc, p, c);
+  add_instruct(pc, p, c);
+  add_instruct(pc, p, c);
+  add_instruct(pc, p, c);
+  add_instruct(pc, l, c);
+  s.target = 4;
+  add_instruct(pc, s, c);
+  p.lvalue = 1;
+  p.rvalue = 2;
+  p.output = 3;
   add_instruct(pc, p, c);
   add_instruct(pc, e, c);
 
