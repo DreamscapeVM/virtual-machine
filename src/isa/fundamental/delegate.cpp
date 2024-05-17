@@ -1,13 +1,19 @@
-// #include <isa/fundamental/delegate.h>
+#include <string>
+#include <isa/fundamental/delegate.h>
+#include <isa/fundamental/set.h>
 
-// uint8_t fundamental_instruction_factory_delegate::get_total_instuction_size() const {
-//     return 1;
-// }
+#define ADD(TYPE) (this->data.push_back(size_of_instruction<TYPE>::size))
 
-// std::string fundamental_instruction_factory_delegate::get_isa_name() const {
-//     return "fundamental";
-// }
+fundamental_instruction_delegate::fundamental_instruction_delegate() {
+    ADD(add<int>);
+    ADD(add<float>);
+}
 
-// std::string fundamental_instruction_factory_delegate::get_instruction_name(uint8_t id) const {
-//     return "add_int32";
-// }
+uint8_t fundamental_instruction_delegate::get_total_instuction_size() const {
+    return data.size();
+}
+
+uint8_t fundamental_instruction_delegate::get_instruction_size(uint8_t id) const {
+    return data[id];
+}
+

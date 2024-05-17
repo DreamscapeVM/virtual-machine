@@ -11,7 +11,7 @@ private:
 
 
 public:
-    std::array<uint8_t, 8> reg;
+    std::array<uint32_t, 8> reg;
 
     void execute(const instruction* const data) {
         if (data->id == 0){
@@ -19,7 +19,6 @@ public:
             reg[p->output] = reg[p->lvalue] + reg[p->rvalue];
         }
     }
-
 };
 
 #endif

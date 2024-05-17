@@ -14,25 +14,36 @@ struct instruction {
     uint8_t id;
 };
 
-class instruction_factory_delegate {
+class instruction_delegate {
 public:
     virtual uint8_t get_total_instuction_size() const = 0;
-    virtual std::string get_isa_name() const = 0;
-    virtual std::string get_instruction_name(uint8_t id) const = 0;
-    virtual instruction generate(const uint8_t id, const uint64_t pc, const uint8_t* const mem) const = 0;
+    virtual uint8_t get_instruction_size(uint8_t id) const = 0;
+    virtual ~instruction_delegate() = default;
+    // virtual ~instruction_delegate() = 0;
+    // virtual std::string get_isa_name() const = 0;
+    // virtual std::string get_instruction_name(uint8_t id) const = 0;
 };
 
 class instruction_factory { 
 private:
-    // std::vector<std::unique_ptr<instruction_factory_delegate>> delegates;
+    std::vector<uint8_t> instruct;
 
 public:
-    void init() { 
+    void init(std::vector<std::unique_ptr<instruction_delegate>> delegates) { 
+        for (const auto& d : delegates) { 
+            int size = d->get_total_instuction_size();
+            for (int i = 0; i < size; i++) {
+                instruct.push_back(d->get_instruction_size(i));
+            }
+        }
     }
 
-    const instruction* const get(const uint64_t pc, const uint8_t* const mem) const { 
+    const instruction* const get_instruction(const uint64_t pc, const uint8_t* const mem) const { 
         uint8_t inst = mem[pc];
         return (const instruction* const)(&mem[pc]);
+    }
+    const uint8_t get_instruction_size(const uint64_t pc, const uint8_t* const mem) const { 
+        return instruct[mem[pc]];
     }
 };
 
