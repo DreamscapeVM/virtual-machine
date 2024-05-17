@@ -9,8 +9,13 @@
 class cpu { 
 private:
     memory mem;
-    instruction_factory instf;
+    instruction_factory engine;
 
+    const instruction* const get_instruction(const uint64_t pc, const uint8_t* const mem) const { 
+        uint8_t inst = mem[pc];
+        return (const instruction* const)(&mem[pc]);
+    }
+    
 public:
     std::array<uint32_t, 8> reg;
 
@@ -18,13 +23,14 @@ public:
         mem.init(1024*1024);
 
         auto dd = std::vector<std::unique_ptr<instruction_delegate>>();
-        dd.push_back(std::make_unique<fundamental_isa::fundamental_instruction_delegate>());
-        instf.init(std::move(dd));
+        dd.push_back(std::make_unique<fundamental_isa::fundamental_instruction_delegate>(0));
+        // dd.push_back(std::make_unique<fundamental_isa::fundamental_instruction_delegate>(dd[dd.size() - 1]->get_total_instuction_size()));
+        engine.init(std::move(dd));
 
     }
 
     void execute(const instruction* const data) {
-        instf.get_ops(data->id)(data, reg.data(), mem.get_memory());
+        engine.get_ops(data->id)(data, reg.data(), mem.get_memory());
     }
 
     void entry(int pc) {
@@ -32,8 +38,9 @@ public:
         reg[2] = 40;
 
         while (true) { 
-            auto inst = instf.get_instruction(pc, mem.get_memory());
-            pc += instf.get_instruction_size_in_memory(pc, mem.get_memory());
+            auto inst = get_instruction(pc, mem.get_memory());
+            pc += engine.get_instruction_size_in_instruction(inst->id);
+
             execute(inst);
             spdlog::info("pc : {}, reg : [{}, {}, {}, {}, {}, {}, {}, {}]", 
                     pc,
@@ -52,7 +59,7 @@ public:
         auto entry_point = pc;
         auto m = mem.get_memory();
 
-        auto size = instf.get_instruction_size_in_instruction(data->id);
+        auto size = engine.get_instruction_size_in_instruction(data->id);
         for (int s = 0; s < size; s++) { 
             m[entry_point + s] = ((uint8_t*)data)[s];
         }

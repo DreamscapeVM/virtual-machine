@@ -8,20 +8,18 @@ namespace fundamental_isa {
 #define MAKE_ADD_TYPE(NAME, TYPE) (std::make_pair(size_of_instruction<fundamental_isa::isa_##NAME<TYPE>>::size, fundamental_isa::ops_##NAME<TYPE>))
 #define MAKE_PUSH(X) (this->data.push_back(X))
 
-fundamental_instruction_delegate::fundamental_instruction_delegate() {
+fundamental_instruction_delegate::fundamental_instruction_delegate(const uint8_t start_id) : instruction_delegate(start_id) {
     MAKE_PUSH(MAKE_ADD(exit));
-    MAKE_PUSH(MAKE_ADD_TYPE(add, int));
-    MAKE_PUSH(MAKE_ADD_TYPE(add, float));
-
-    // MAKE_PUSH(MAKE_ADD_TYPE(load, uint8_t));
-    // MAKE_PUSH(MAKE_ADD_TYPE(load, uint16_t));
+    MAKE_PUSH(MAKE_ADD_TYPE(add, uint32_t));
+    MAKE_PUSH(MAKE_ADD_TYPE(add, int32_t));
+    MAKE_PUSH(MAKE_ADD_TYPE(load, uint8_t));
+    MAKE_PUSH(MAKE_ADD_TYPE(load, uint16_t));
     MAKE_PUSH(MAKE_ADD_TYPE(load, uint32_t));
-    // MAKE_PUSH(MAKE_ADD_TYPE(load, uint64_t));
-
-    // MAKE_PUSH(MAKE_ADD_TYPE(store, uint8_t));
-    // MAKE_PUSH(MAKE_ADD_TYPE(store, uint16_t));
+    MAKE_PUSH(MAKE_ADD_TYPE(load, uint64_t));
+    MAKE_PUSH(MAKE_ADD_TYPE(store, uint8_t));
+    MAKE_PUSH(MAKE_ADD_TYPE(store, uint16_t));
     MAKE_PUSH(MAKE_ADD_TYPE(store, uint32_t));
-    // MAKE_PUSH(MAKE_ADD_TYPE(store, uint64_t));
+    MAKE_PUSH(MAKE_ADD_TYPE(store, uint64_t));
 }
 
 uint8_t fundamental_instruction_delegate::get_total_instuction_size() const {

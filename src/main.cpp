@@ -3,6 +3,7 @@
 #include <system/cpu.h>
 #include <isa/fundamental/set.h>
 #include <isa/fundamental/delegate.h>
+#include <isa/cpu_isa.h>
 
 #define add_instruct(PC, INST, CPU) {PC += CPU.add_instruct(PC, &INST);}
 
@@ -53,7 +54,6 @@ int main() {
 
   // execute code by exit.
   c.entry(0);
-  
 
   return 0;
 }
