@@ -4,27 +4,23 @@
 #include "ops.hpp.inl"
 
 namespace fundamental_isa { 
-#define MAKE_ADD(NAME) (std::make_pair(size_of_instruction<fundamental_isa::isa_##NAME>::size, fundamental_isa::ops_##NAME))
-#define MAKE_ADD_TYPE(NAME, TYPE) (std::make_pair(size_of_instruction<fundamental_isa::isa_##NAME<TYPE>>::size, fundamental_isa::ops_##NAME<TYPE>))
+#if defined(GGEN) || defined(TGEN) || defined(BGEN)
+#undef GGEN
+#undef TGEN
+#undef BGEN
+#endif
 #define MAKE_PUSH(X) (this->data.push_back(X))
 
+#define MGGEN(ISA, NAME) (std::make_pair(size_of_instruction<fundamental_isa::isa_##NAME>::size, fundamental_isa::ops_##NAME))
+#define MTGEN(ISA, NAME, TYPE) std::make_pair(size_of_instruction<fundamental_isa::isa_##NAME<TYPE##_t>>::size, fundamental_isa::ops_##NAME<TYPE##_t>)
+#define MBGEN(ISA, NAME, BIT) std::make_pair(size_of_instruction<fundamental_isa::isa_##NAME<uint##BIT##_t>>::size, fundamental_isa::ops_##NAME<uint##BIT##_t>)
+
+#define GGEN(ISA, NAME) (MAKE_PUSH(MGGEN(ISA, NAME)));
+#define TGEN(ISA, NAME, TYPE) (MAKE_PUSH(MTGEN(ISA, NAME, TYPE)));
+#define BGEN(ISA, NAME, BIT) (MAKE_PUSH(MBGEN(ISA, NAME, BIT)));
+
 fundamental_instruction_delegate::fundamental_instruction_delegate(const uint8_t start_id) : instruction_delegate(start_id) {
-    MAKE_PUSH(MAKE_ADD(exit));
-    MAKE_PUSH(MAKE_ADD_TYPE(add, uint32_t));
-    MAKE_PUSH(MAKE_ADD_TYPE(add, int32_t));
-    MAKE_PUSH(MAKE_ADD_TYPE(load, uint8_t));
-    MAKE_PUSH(MAKE_ADD_TYPE(load, uint16_t));
-    MAKE_PUSH(MAKE_ADD_TYPE(load, uint32_t));
-    MAKE_PUSH(MAKE_ADD_TYPE(load, uint64_t));
-    MAKE_PUSH(MAKE_ADD_TYPE(store, uint8_t));
-    MAKE_PUSH(MAKE_ADD_TYPE(store, uint16_t));
-    MAKE_PUSH(MAKE_ADD_TYPE(store, uint32_t));
-    MAKE_PUSH(MAKE_ADD_TYPE(store, uint64_t));
-    MAKE_PUSH(MAKE_ADD_TYPE(equal_condition, uint8_t));
-    MAKE_PUSH(MAKE_ADD_TYPE(equal_condition, uint16_t));
-    MAKE_PUSH(MAKE_ADD_TYPE(equal_condition, uint32_t));
-    MAKE_PUSH(MAKE_ADD_TYPE(equal_condition, uint64_t));
-    
+#include <isa/fundamental/cpu_isa.h>
 }
 
 uint8_t fundamental_instruction_delegate::get_total_instuction_size() const {

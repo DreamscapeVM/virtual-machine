@@ -1,15 +1,15 @@
-GEN(fundamental, exit),
-GEN(fundamental, add_uint32),
-GEN(fundamental, add_int32),
-GEN(fundamental, load_8),
-GEN(fundamental, load_16),
-GEN(fundamental, load_32),
-GEN(fundamental, load_64),
-GEN(fundamental, store_8),
-GEN(fundamental, store_16),
-GEN(fundamental, store_32),
-GEN(fundamental, store_64),
-GEN(fundamental, equal_condition_8),
-GEN(fundamental, equal_condition_16),
-GEN(fundamental, equal_condition_32),
-GEN(fundamental, equal_condition_64),
+GGEN(fundamental, exit)
+TGEN(fundamental, add, uint32)
+TGEN(fundamental, add, int32)
+BGEN(fundamental, load, 8)
+BGEN(fundamental, load, 16)
+BGEN(fundamental, load, 32)
+BGEN(fundamental, load, 64)
+BGEN(fundamental, store, 8)
+BGEN(fundamental, store, 16)
+BGEN(fundamental, store, 32)
+BGEN(fundamental, store, 64)
+BGEN(fundamental, equal_condition, 8)
+BGEN(fundamental, equal_condition, 16)
+BGEN(fundamental, equal_condition, 32)
+BGEN(fundamental, equal_condition, 64)
