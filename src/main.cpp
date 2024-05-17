@@ -13,21 +13,21 @@ int main() {
 
   int pc = 0;
   fundamental_isa::isa_add<int> p;
-  p.id = 1;
+  p.id = vm_cpu_isa::fundamental_add_int32;
   p.lvalue = 1;
   p.rvalue = 1;
   p.output = 1;
 
   fundamental_isa::isa_exit e;
-  e.id = 0;
+  e.id = vm_cpu_isa::fundamental_exit;
 
   fundamental_isa::isa_store<uint32_t> s;
-  s.id = 4;
+  s.id = vm_cpu_isa::fundamental_store_32;
   s.reg = 1;
   s.target = 0;
 
   fundamental_isa::isa_load<uint32_t> l;
-  l.id = 3;
+  l.id = vm_cpu_isa::fundamental_load_32;
   l.reg = 2;
   l.target = 0;
 

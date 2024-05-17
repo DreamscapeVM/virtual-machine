@@ -5,6 +5,7 @@
 #include <vector>
 #include <memory>
 #include <functional>
+#include <isa/cpu_isa.h>
 
 #define OPS_NAME(NAME) void ops_##NAME(const instruction* const inst, uint32_t* reg, uint8_t* mem)
 #define ISA_NAME(NAME) struct isa_##NAME : public instruction
@@ -15,7 +16,7 @@ struct size_of_instruction {
 };
 
 struct instruction { 
-    uint8_t id;
+    vm_cpu_isa id;
 };
 
 class instruction_delegate {
@@ -50,11 +51,11 @@ public:
         uint8_t inst = mem[pc];
         return (const instruction* const)(&mem[pc]);
     }
-    const uint8_t get_instruction_size_in_instruction(const uint8_t id) const { 
-        return instruct[id].first;
+    const uint8_t get_instruction_size_in_instruction(const vm_cpu_isa id) const { 
+        return instruct[(uint8_t)id].first;
     }
-    const instruction_delegate::ops_func get_ops(const uint8_t id) const { 
-        return instruct[id].second;
+    const instruction_delegate::ops_func get_ops(const vm_cpu_isa id) const { 
+        return instruct[(uint8_t)id].second;
     }
 };
 
