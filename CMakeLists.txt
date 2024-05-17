@@ -4,6 +4,7 @@ project(${PROJ_NAME})
 
 include(${CMAKE_SOURCE_DIR}/cmake/config.cmake)
 
+
 # set(CMAKE_C_STANDARD                14)
 set(CMAKE_CXX_STANDARD              17)
 set(CMAKE_C_STANDARD_REQUIRED       ON)
@@ -24,8 +25,10 @@ include_directories(${CMAKE_SOURCE_DIR}/inc)
 if (NOT USE_GTEST)
     add_executable(${PROJ_NAME} src/main.cpp
                                 src/system/memory.cpp
+                                src/system/cpu.cpp
                                 src/args/parser.cpp
-                                src/isa/fundamental/delegate.cpp)
+                                src/isa/fundamental/delegate.cpp
+                                src/isa/instruction.cpp)
 else()
     add_library(${PROJ_NAME} src/args/parser.cpp)
     include(${CMAKE_SOURCE_DIR}/cmake/tests/args.cmake)

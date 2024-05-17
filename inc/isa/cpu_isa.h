@@ -7,7 +7,10 @@
 #define BGEN(ISA, NAME, BIT) ISA##_##NAME##_##BIT ,
 
 enum class vm_cpu_isa : uint8_t { 
+#ifdef FUNDAMENTAL_ISA
 #include <isa/fundamental/cpu_isa.h>
+#endif
+
 };
 
 #endif
