@@ -1,3 +1,5 @@
+#include <iostream>
+
 #include <isa/instruction.h>
 #include <isa/fundamental/set.h>
 
@@ -40,5 +42,19 @@ OPS_NAME(equal_condition) {
     }
     reg[0] = self->true_pc;
 }
+
+
+template<typename T>
+OPS_NAME(scan_from_prompt_per_primitive) {
+    auto self = (fundamental_isa::isa_scan_from_prompt_per_primitive<T>*)inst;
+    std::cin >> *(T*)(&mem[self->memory_address]);
+};
+
+template<typename T>
+OPS_NAME(print_to_prompt_per_primitive) { 
+    auto self = (fundamental_isa::isa_print_to_prompt_per_primitive<T>*)inst;
+    std::cout << *(T*)(&mem[self->memory_address]);
+};
+
 
 }

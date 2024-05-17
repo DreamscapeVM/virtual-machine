@@ -41,6 +41,16 @@ ISA_NAME(equal_condition) {
     uint64_t false_pc;
 };
 
+template<typename T>
+ISA_NAME(scan_from_prompt_per_primitive) {
+    uint64_t memory_address;
+};
+
+template<typename T>
+ISA_NAME(print_to_prompt_per_primitive) { 
+    uint64_t memory_address;
+};
+
 
 }
 

@@ -23,7 +23,7 @@ void cpu::execute(const instruction* const data) {
 
 void cpu::entry(int pc) {
     reg[0] = pc;
-    reg[1] = 0;
+    reg[1] = 1;
     reg[2] = 1;
     reg[3] = 15;
 
@@ -32,15 +32,15 @@ void cpu::entry(int pc) {
         reg[0] += engine.get_instruction_size_in_instruction(inst->id);
 
         execute(inst);
-        spdlog::info("reg : [{}, {}, {}, {}, {}, {}, {}, {}]", 
-                reg[0],
-                reg[1],
-                reg[2],
-                reg[3],
-                reg[4],
-                reg[5],
-                reg[6], 
-                reg[7]);
+        // spdlog::info("reg : [{}, {}, {}, {}, {}, {}, {}, {}]", 
+        //         reg[0],
+        //         reg[1],
+        //         reg[2],
+        //         reg[3],
+        //         reg[4],
+        //         reg[5],
+        //         reg[6], 
+        //         reg[7]);
     }
 }
 
