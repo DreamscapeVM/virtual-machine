@@ -11,11 +11,13 @@ private:
     instruction_factory engine;
     const instruction* const get_instruction(const uint64_t pc, const uint8_t* const mem) const;
 public:
-    std::array<uint32_t, 8> reg;
+    using register_data = std::array<uint32_t, 8>;
+
+    register_data reg;
 
     void init();
     inline void execute(const instruction* const data);
-    void entry(int pc);
+    void entry(register_data reg);
     const int add_instruct(const uint32_t pc, instruction* data);
     // const int add_software(const uint32_t pc, std::vector<instruction*> data);
 };

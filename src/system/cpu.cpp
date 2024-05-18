@@ -21,11 +21,11 @@ void cpu::execute(const instruction* const data) {
     engine.get_ops(data->id)(data, reg.data(), mem.get_memory());
 }
 
-void cpu::entry(int pc) {
-    reg[0] = pc;
-    reg[1] = 1;
-    reg[2] = 1;
-    reg[3] = 15;
+void cpu::entry(register_data reg) {
+    for (int i = 0; i < reg.size(); i++) { 
+        this->reg[i] = reg[i];
+    }
+    
 
     while (true) { 
         auto inst = get_instruction(reg[0], mem.get_memory());

@@ -5,6 +5,7 @@ project(${PROJ_NAME})
 include(${CMAKE_SOURCE_DIR}/cmake/config.cmake)
 
 
+
 # set(CMAKE_C_STANDARD                14)
 set(CMAKE_CXX_STANDARD              17)
 set(CMAKE_C_STANDARD_REQUIRED       ON)
@@ -35,6 +36,7 @@ if (NOT USE_GTEST)
 else()
     add_library(${PROJ_NAME}    ${SRC_PARSER} ${SRC_SYSTEM} ${SRC_ISA} ${SRC_FUNDAMENTAL_ISA})
     include(${CMAKE_SOURCE_DIR}/cmake/tests/args.cmake)
+    include(${CMAKE_SOURCE_DIR}/cmake/tests/fundamental.cmake)
 endif()
 
 target_link_libraries(${PROJ_NAME} PRIVATE spdlog::spdlog)
