@@ -4,6 +4,8 @@ project(${PROJ_NAME})
 
 include(${CMAKE_SOURCE_DIR}/cmake/config.cmake)
 
+
+
 # set(CMAKE_C_STANDARD                14)
 set(CMAKE_CXX_STANDARD              17)
 set(CMAKE_C_STANDARD_REQUIRED       ON)
@@ -21,12 +23,20 @@ find_package(spdlog CONFIG REQUIRED)
 
 include_directories(${CMAKE_SOURCE_DIR}/inc)
 
+SET (SRC_PARSER             src/args/parser.cpp)
+SET (SRC_SYSTEM             src/system/memory.cpp src/system/cpu.cpp)
+SET (SRC_ISA                src/isa/instruction.cpp)
+SET (SRC_FUNDAMENTAL_ISA     src/isa/fundamental/delegate.cpp )
+
+
+
 if (NOT USE_GTEST)
     add_executable(${PROJ_NAME} src/main.cpp
-                                src/args/parser.cpp)
+                                ${SRC_PARSER} ${SRC_SYSTEM} ${SRC_ISA} ${SRC_FUNDAMENTAL_ISA})
 else()
-    add_library(${PROJ_NAME} src/args/parser.cpp)
+    add_library(${PROJ_NAME}    ${SRC_PARSER} ${SRC_SYSTEM} ${SRC_ISA} ${SRC_FUNDAMENTAL_ISA})
     include(${CMAKE_SOURCE_DIR}/cmake/tests/args.cmake)
+    include(${CMAKE_SOURCE_DIR}/cmake/tests/fundamental.cmake)
 endif()
 
 target_link_libraries(${PROJ_NAME} PRIVATE spdlog::spdlog)
