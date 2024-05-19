@@ -12,6 +12,8 @@
 #define TGEN(ISA, NAME, TYPE) ISA##_##NAME##_##TYPE ,
 #define BGEN(ISA, NAME, BIT) ISA##_##NAME##_##BIT ,
 
+using char_t = char;
+
 enum class vm_cpu_isa : uint8_t { 
 #ifdef FUNDAMENTAL_ISA
 #include <isa/fundamental/cpu_isa.h>

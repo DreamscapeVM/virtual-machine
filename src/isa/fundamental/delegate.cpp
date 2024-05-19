@@ -3,6 +3,7 @@
 
 #include "ops.hpp.inl"
 
+
 namespace fundamental_isa { 
 #if defined(GGEN) || defined(TGEN) || defined(BGEN)
 #undef GGEN

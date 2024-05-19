@@ -7,7 +7,6 @@
 #include <functional>
 #include <isa/cpu_isa.h>
 
-
 #define OPS_NAME(NAME) void ops_##NAME(const instruction* const inst, uint32_t* reg, uint8_t* mem)
 #define ISA_NAME(NAME) struct isa_##NAME : public instruction
 

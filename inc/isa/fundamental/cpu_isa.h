@@ -1,3 +1,4 @@
+TGEN(fundamental, print_to_prompt_per_primitive, char)
 GGEN(fundamental, exit)
 TGEN(fundamental, add, uint32)
 TGEN(fundamental, add, int32)

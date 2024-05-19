@@ -27,21 +27,12 @@ void cpu::entry(register_data reg) {
         this->reg[i] = reg[i];
     }
     
-
     while (true) { 
-        auto inst = get_instruction(reg[0], mem.get_memory());
-        reg[0] += engine.get_instruction_size_in_instruction(inst->id);
+        auto inst = get_instruction(this->reg[0], mem.get_memory());
+        
+        this->reg[0] += engine.get_instruction_size_in_instruction(inst->id);
 
         execute(inst);
-        // spdlog::info("reg : [{}, {}, {}, {}, {}, {}, {}, {}]", 
-        //         reg[0],
-        //         reg[1],
-        //         reg[2],
-        //         reg[3],
-        //         reg[4],
-        //         reg[5],
-        //         reg[6], 
-        //         reg[7]);
     }
 }
 
@@ -71,9 +62,12 @@ void cpu::save(std::string file, int pc) {
     std::ofstream output(file, std::ios::binary | std::ios::out);
     uint64_t data = 0;
     data = 0; output.write(reinterpret_cast<const char*>(&data), sizeof(uint64_t)); 
-    data = 4; output.write(reinterpret_cast<const char*>(&data), sizeof(uint64_t)); 
+    data = 13; output.write(reinterpret_cast<const char*>(&data), sizeof(uint64_t)); 
     data = 1; output.write(reinterpret_cast<const char*>(&data), sizeof(uint64_t)); 
     data = 1000; output.write(reinterpret_cast<const char*>(&data), sizeof(uint32_t)); 
+    data = 1; output.write(reinterpret_cast<const char*>(&data), sizeof(uint32_t)); 
+    data = 15; output.write(reinterpret_cast<const char*>(&data), sizeof(uint32_t));
+    data = '\n'; output.write(reinterpret_cast<const char*>(&data), sizeof(uint8_t));
     
     for (int i = 0; i < pc; i++) { 
         output << mem.get_memory()[i];
