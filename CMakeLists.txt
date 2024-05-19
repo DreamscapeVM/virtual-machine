@@ -27,14 +27,17 @@ SET (SRC_PARSER             src/args/parser.cpp)
 SET (SRC_SYSTEM             src/system/memory.cpp src/system/cpu.cpp)
 SET (SRC_ISA                src/isa/instruction.cpp)
 SET (SRC_FUNDAMENTAL_ISA     src/isa/fundamental/delegate.cpp )
-
-
+SET (SRC_CIPHER     src/secure/cipher_base64.cpp 
+                    src/secure/cipher_chacha20.cpp
+                    src/secure/cipher_shift.cpp
+                    src/secure/cipher_vigenere.cpp
+                    src/secure/cipher_xor.cpp )
 
 if (NOT USE_GTEST)
     add_executable(${PROJ_NAME} src/main.cpp
-                                ${SRC_PARSER} ${SRC_SYSTEM} ${SRC_ISA} ${SRC_FUNDAMENTAL_ISA})
+                                ${SRC_PARSER} ${SRC_SYSTEM} ${SRC_ISA} ${SRC_FUNDAMENTAL_ISA} ${SRC_CIPHER})
 else()
-    add_library(${PROJ_NAME}    ${SRC_PARSER} ${SRC_SYSTEM} ${SRC_ISA} ${SRC_FUNDAMENTAL_ISA})
+    add_library(${PROJ_NAME}    ${SRC_PARSER} ${SRC_SYSTEM} ${SRC_ISA} ${SRC_FUNDAMENTAL_ISA} ${SRC_CIPHER})
     include(${CMAKE_SOURCE_DIR}/cmake/tests/args.cmake)
     include(${CMAKE_SOURCE_DIR}/cmake/tests/fundamental.cmake)
 endif()

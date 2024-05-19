@@ -2,8 +2,9 @@
 #include <system/cpu.h>
 #include <isa/fundamental/delegate.h>
 #include <load/software.h>
+#include <secure/helper.hpp>
 
-void create_software(std::string file){ 
+void create_software(std::string file, std::vector<std::shared_ptr<cipher>>& ciphers){ 
     cpu c;
     c.init();
     auto a = c.get_isa_engine();
@@ -25,8 +26,8 @@ void create_software(std::string file){
     c.save(file, pc);
 }
 
-void execute(std::string file) { 
-    auto ware = software::load("code.vm");
+void execute(std::string file, std::vector<std::shared_ptr<cipher>>& ciphers) { 
+    auto ware = software::load(file);
     int pc = ware.get_entry_point();
     auto code = ware.get_binary();
 
@@ -39,7 +40,8 @@ void execute(std::string file) {
 }
 
 int main(int argc, char** argv) {  
-    create_software("code.vm");
-    execute("code.vm");
+    auto cipher = init();
+    create_software("code.vm", cipher);
+    execute("code.vm", cipher);
     return 0;
 }
