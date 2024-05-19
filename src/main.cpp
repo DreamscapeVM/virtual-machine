@@ -1,6 +1,7 @@
 #include <args/parsing.h>
 #include <system/cpu.h>
 #include <isa/fundamental/delegate.h>
+#include <load/software.h>
 
 #define PUSH_INSTRUCT(CPU, PC, X) { PC += CPU..add_instruct(PC, X); }
 int main(int argc, char** argv) {  
