@@ -1,7 +1,8 @@
-#include <spdlog/spdlog.h>
+#include <args/parsing.h>
 
+int main(int argc, char** argv) {  
+    auto argument = args::parse_argument(argc, argv);
+    
 
-int main() {  
-
-  return 0;
+    return 0;
 }
