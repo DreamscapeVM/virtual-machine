@@ -44,22 +44,23 @@ void cpu::entry(register_data reg) {
     }
 }
 
-const int cpu::add_instruct(const uint32_t pc, instruction* data) { 
+const int cpu::add_instruct(const uint32_t pc, const std::shared_ptr<instruction> data) { 
     auto entry_point = pc;
     auto m = mem.get_memory();
 
     auto size = engine.get_instruction_size_in_instruction(data->id);
     for (int s = 0; s < size; s++) { 
-        m[entry_point + s] = ((uint8_t*)data)[s];
+    
+        m[entry_point + s] = ((uint8_t*)data.get())[s];
     }
 
     return size;
 }
 
-// const int cpu::add_software(const uint32_t pc, std::vector<instruction*> data) { 
-//     auto last = pc;
-//     for (int i = 0; i < data.size(); i++) {
-//         last += add_instruct(last, data[i]);
-//     }
-//     return last;
-// }
+const int cpu::add_instruct(const uint32_t pc, std::vector<std::shared_ptr<instruction>> data) { 
+    auto last = pc;
+    for (int i = 0; i < data.size(); i++) {
+        last += add_instruct(last, data[i]);
+    }
+    return last;
+}
