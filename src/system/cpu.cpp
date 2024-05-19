@@ -1,3 +1,4 @@
+#include <fstream>
 #include <system/cpu.h>
 #include <spdlog/spdlog.h>
 #include <isa/fundamental/delegate.h>
@@ -63,4 +64,18 @@ const int cpu::add_instruct(const uint32_t pc, std::vector<std::shared_ptr<instr
         last += add_instruct(last, data[i]);
     }
     return last;
+}
+
+
+void cpu::save(std::string file, int pc) { 
+    std::ofstream output(file, std::ios::binary | std::ios::out);
+    uint64_t data = 0;
+    data = 0; output.write(reinterpret_cast<const char*>(&data), sizeof(uint64_t)); 
+    data = 4; output.write(reinterpret_cast<const char*>(&data), sizeof(uint64_t)); 
+    data = 1; output.write(reinterpret_cast<const char*>(&data), sizeof(uint64_t)); 
+    data = 1000; output.write(reinterpret_cast<const char*>(&data), sizeof(uint32_t)); 
+    
+    for (int i = 0; i < pc; i++) { 
+        output << mem.get_memory()[i];
+    }
 }

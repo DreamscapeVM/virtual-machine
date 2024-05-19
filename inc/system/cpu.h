@@ -25,7 +25,16 @@ public:
         return &this->engine;
     }
 
-    // const int add_software(const uint32_t pc, std::vector<instruction*> data);
+    void save(std::string file, int pc);
+    void add_software(uint8_t* data, uint64_t size) { 
+        auto m = mem.get_memory();
+
+        for (int i = 0; i < size; i++) { 
+            m[i] = data[i];
+        }
+        
+        return;
+    }
 };
 
 #endif
