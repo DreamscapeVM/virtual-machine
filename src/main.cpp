@@ -3,7 +3,7 @@
 #include <isa/fundamental/delegate.h>
 #include <load/software.h>
 
-int main(int argc, char** argv) {  
+void create_software(std::string file){ 
     cpu c;
     c.init();
     auto a = c.get_isa_engine();
@@ -22,15 +22,24 @@ int main(int argc, char** argv) {
     int loop_end = pc + size_of_instruction<fundamental_isa::isa_equal_condition<uint32_t>>::size + 13;
     pc += c.add_instruct(pc, CREATE_BIT(fundamental, equal_condition, 32, 2, 4, (uint32_t)loop_end, (uint32_t)loop));
     pc += c.add_instruct(pc, CREATE(fundamental, exit));
-    c.save("code.vm", pc);
+    c.save(file, pc);
+}
 
+void execute(std::string file) { 
     auto ware = software::load("code.vm");
-    pc = ware.get_entry_point();
+    int pc = ware.get_entry_point();
     auto code = ware.get_binary();
+
+    cpu c;
+    c.init();
     c.add_software(code.data(), code.size());
     c.entry(cpu::register_data {
         (uint32_t)pc, 0,0,0,0,0,0,0
     });
-    
+}
+
+int main(int argc, char** argv) {  
+    create_software("code.vm");
+    execute("code.vm");
     return 0;
 }

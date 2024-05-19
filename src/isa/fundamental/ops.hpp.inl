@@ -58,6 +58,4 @@ OPS_NAME(print_to_prompt_per_primitive) {
 
 
 
-
-
 }
