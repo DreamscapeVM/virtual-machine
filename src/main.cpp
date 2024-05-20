@@ -2,9 +2,11 @@
 #include <system/cpu.h>
 #include <isa/fundamental/delegate.h>
 #include <load/software.h>
-#include <secure/helper.hpp>
 
-void create_software(std::string file, std::vector<std::shared_ptr<cipher>>& ciphers){ 
+/*
+ Only code for really ensure work my code test.
+*/
+void create_software(std::string file){ 
     cpu c;
     c.init();
     auto a = c.get_isa_engine();
@@ -26,7 +28,7 @@ void create_software(std::string file, std::vector<std::shared_ptr<cipher>>& cip
     c.save(file, pc);
 }
 
-void execute(std::string file, std::vector<std::shared_ptr<cipher>>& ciphers) { 
+void execute(std::string file) { 
     auto ware = software::load(file);
     int pc = ware.get_entry_point();
     auto code = ware.get_binary();
@@ -40,8 +42,8 @@ void execute(std::string file, std::vector<std::shared_ptr<cipher>>& ciphers) {
 }
 
 int main(int argc, char** argv) {  
-    auto cipher = init();
-    create_software("code.vm", cipher);
-    execute("code.vm", cipher);
+    // create_software("./examples/binaries/code.vm");
+    
+    execute("./examples/binaries/code.vm");
     return 0;
 }
