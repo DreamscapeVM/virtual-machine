@@ -51,6 +51,23 @@ ISA_NAME(print_to_prompt_per_primitive) {
     uint64_t memory_address;
 };
 
+template<typename T>
+ISA_NAME(constant_mov_to_reg) { 
+    uint8_t reg;
+    T data;
+};
+
+template<typename T>
+ISA_NAME(variable_mov_to_reg) { 
+    uint8_t source_reg;
+    uint8_t target_reg;
+};
+
+template<typename T>
+ISA_NAME(constant_mov_to_mem) { 
+    uint64_t memory_address;
+    T data;
+};
 
 }
 

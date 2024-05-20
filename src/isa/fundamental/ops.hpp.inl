@@ -56,6 +56,24 @@ OPS_NAME(print_to_prompt_per_primitive) {
     std::cout << *(T*)(&mem[self->memory_address]);
 };
 
+template<typename T>
+OPS_NAME(constant_mov_to_reg) { 
+    auto self = (fundamental_isa::isa_constant_mov_to_reg<T>*)inst;
+    ((T*)reg)[self->reg] = self->data;
+};
+
+template<typename T>
+OPS_NAME(variable_mov_to_reg) { 
+    auto self = (fundamental_isa::isa_variable_mov_to_reg<T>*)inst;
+    ((T*)reg)[self->target_reg] = ((T*)reg)[self->source_reg];
+};
+
+template<typename T>
+OPS_NAME(constant_mov_to_mem) { 
+    auto self = (fundamental_isa::isa_constant_mov_to_mem<T>*)inst;
+    *(T*)(&mem[self->memory_address]) = self->data;
+};
+
 
 
 }
