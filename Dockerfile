@@ -5,6 +5,8 @@ RUN apt update && \
     curl zip unzip tar build-essential pkg-config
     
 COPY vcpkg.json vcpkg.json
+COPY Makefile Makefile
+
 RUN make vcpkg
 COPY . .
 
@@ -23,8 +25,7 @@ RUN mkdir build && \
 
 RUN rm -rf /var/lib/apt/lists/*
 
-
-# For deployment., so To be determine.
+# # For deployment., so To be determine.
 # FROM scratch
 # LABEL org.opencontainers.image.source=https://github.com/orgs/virtual-machine-created-by-myself
 # LABEL org.opencontainers.image.licenses=MIT
