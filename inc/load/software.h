@@ -4,6 +4,7 @@
 #include <fstream>
 #include <cassert>
 #include <vector>
+#include <stdint.h>
 
 class software { 
 private:

@@ -13,6 +13,8 @@
 #define BGEN(ISA, NAME, BIT) ISA##_##NAME##_##BIT ,
 
 using char_t = char;
+using double_t = double;
+using float_t = float;
 
 #ifdef FUNDAMENTAL_ISA
     #define FUNDAMENTAL_OPS_ABLE 0b0001
