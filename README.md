@@ -3,6 +3,19 @@ it is validate for a code to algorithm.
 
 [![All Unit Test](https://github.com/virtual-machine-created-by-myself/virtual-machine/actions/workflows/build_test.yaml/badge.svg?branch=main)](https://github.com/virtual-machine-created-by-myself/virtual-machine/actions/workflows/build_test.yaml)
 
+# how to build and run this program?
+
+```
+$ docker build -t vm .
+$ docker run --rm -it vm /virtual-machine --help
+# if you are user advanced?
+$ docker run --rm -it -v $(pwd)/examples/binaries/code.vm:/code.vm vm /virtual-machine -p /code.vm
+```
+
+## Reuslt from Terminal
+
+![](/docs/img1.png)
+
 ## Assembly Instruction in this VM
 
 ISA|Ops Id|Ops Name|Parameters|Ops Size

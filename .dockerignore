@@ -4,3 +4,6 @@ vcpkg/
 scripts/
 vcpkg_installed/
 Dockerfile
+*.md
+LICENSE
+.*
