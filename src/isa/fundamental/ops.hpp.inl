@@ -43,6 +43,19 @@ OPS_NAME(equal_condition) {
     reg[0] = self->true_pc;
 }
 
+template<typename T>
+OPS_NAME(left_angle_condition) {
+    auto self = (fundamental_isa::isa_left_angle_condition<T>*)inst;
+    if (((T*)reg)[self->lreg] < ((T*)reg)[self->rreg]){
+        reg[0] = self->true_pc;
+    }else { 
+        reg[0] = self->false_pc;
+    }
+}
+
+
+
+
 
 template<typename T>
 OPS_NAME(scan_from_prompt_per_primitive) {
@@ -73,6 +86,7 @@ OPS_NAME(constant_mov_to_mem) {
     auto self = (fundamental_isa::isa_constant_mov_to_mem<T>*)inst;
     *(T*)(&mem[self->memory_address]) = self->data;
 };
+
 
 
 

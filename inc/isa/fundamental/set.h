@@ -40,6 +40,16 @@ ISA_NAME(equal_condition) {
     uint64_t true_pc;
     uint64_t false_pc;
 };
+template<typename T>
+ISA_NAME(left_angle_condition) { 
+    using type = T;
+    uint8_t lreg;
+    uint8_t rreg;
+    uint64_t true_pc;
+    uint64_t false_pc;
+};
+
+
 
 template<typename T>
 ISA_NAME(scan_from_prompt_per_primitive) {

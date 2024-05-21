@@ -32,8 +32,8 @@ public:
     virtual uint8_t get_instruction_size(uint8_t id) const = 0;
     virtual ops_func get_ops(uint8_t id) = 0;
 };
-#define CONVRT_TYPE(DATA) std::static_pointer_cast<instruction>(DATA)
 
+#define CONVRT_TYPE(DATA) std::static_pointer_cast<instruction>(DATA)
 #define CREATE(SET, OPS, ...) CONVRT_TYPE(std::make_shared<SET##_isa::isa_##OPS>(SET##_isa::isa_##OPS { vm_cpu_isa::SET##_##OPS, __VA_ARGS__ }))
 #define CREATE_TYPE(SET, OPS, TYPE, ...) CONVRT_TYPE(std::make_shared<SET##_isa::isa_##OPS<TYPE##_t>>(SET##_isa::isa_##OPS<TYPE##_t> { vm_cpu_isa::SET##_##OPS##_##TYPE, __VA_ARGS__ }))
 #define CREATE_BIT(SET, OPS, BIT, ...) CONVRT_TYPE(std::make_shared<SET##_isa::isa_##OPS<uint##BIT##_t>>(SET##_isa::isa_##OPS<uint##BIT##_t> { vm_cpu_isa::SET##_##OPS##_##BIT, __VA_ARGS__ }))
