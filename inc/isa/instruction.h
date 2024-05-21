@@ -7,7 +7,7 @@
 #include <functional>
 #include <isa/cpu_isa.h>
 
-#define OPS_NAME(NAME) void ops_##NAME(const instruction* const inst, uint32_t* reg, uint8_t* mem)
+#define OPS_NAME(NAME) void ops_##NAME(const instruction* const inst, uint64_t* reg, uint8_t* mem)
 #define ISA_NAME(NAME) struct isa_##NAME : public instruction
 
 template<typename T>
@@ -21,7 +21,7 @@ struct instruction {
 
 class instruction_delegate {
 public:
-    using ops_func = std::function<void(const instruction* const , uint32_t*, uint8_t*)>;
+    using ops_func = std::function<void(const instruction* const , uint64_t*, uint8_t*)>;
     uint8_t start_id;
 
 public:

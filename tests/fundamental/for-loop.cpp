@@ -1,8 +1,8 @@
-
 #include <gtest/gtest.h>
+#include <args/parsing.h>
 #include <system/cpu.h>
-#include <isa/fundamental/set.h>
-#include <isa/cpu_isa.h>
+#include <isa/fundamental/delegate.h>
+#include <load/software.h>
 
 #define add_instruct(PC, INST, CPU) {PC += CPU.add_instruct(PC, &INST);}
 

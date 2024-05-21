@@ -3,6 +3,7 @@
 #include <string>
 #include <fstream>
 #include <cassert>
+#include <vector>
 
 class software { 
 private:
@@ -11,6 +12,8 @@ private:
     uint64_t metadata_section;
     uint64_t data_section;
     uint64_t use_ops;
+    uint64_t register_size;
+    std::vector<uint64_t> init_register_state;
     std::vector<uint8_t> binary;
 
     static int read(std::ifstream& file, char* buf, int read_size = 8) { 
@@ -20,23 +23,13 @@ private:
     }
 
 public:
-    std::vector<uint8_t> get_binary() const { 
-        return binary;
-    }
-    constexpr decltype(auto) get_binary_size() const { 
-        return binary.size();
-    }
-    constexpr decltype(auto) get_entry_point() const { 
-        return metadata_section + data_section;
-    }
-
-    constexpr decltype(auto) get_data_size() const { 
-        return data_section;
-    }
-    constexpr decltype(auto) get_metadata_size() const { 
-        return metadata_section;
-    }
-
+    std::vector<uint8_t> get_binary() const;
+    std::vector<uint64_t> get_init_register_state() const;
+    const uint64_t get_binary_size() const;
+    const uint64_t get_entry_point() const;
+    const uint64_t get_data_size() const;
+    const uint64_t get_metadata_size() const;
+    const uint64_t get_ops_in_software() const;
 
     static software load(std::string file_name) { 
         software result;
@@ -55,6 +48,13 @@ public:
         result.data_section = *(uint64_t*)buf;
         read(data, buf, 8);
         result.use_ops = *(uint64_t*)buf;
+        read(data, buf, 8);
+        result.register_size = *(uint64_t*)buf;
+        for (int i = 0; i < result.register_size; i++) { 
+            read(data, buf, 8);
+            uint64_t tmp = *(uint64_t*)buf;
+            result.init_register_state.push_back(tmp);
+        }
         
         uint64_t bin_size = result.full_size - (sizeof(uint64_t) * 3);
         result.binary.resize(static_cast<size_t>(bin_size));
