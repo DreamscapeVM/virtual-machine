@@ -1,4 +1,4 @@
-SET(PROJ_NAME virtual-machine)
+SET(PROJ_NAME ElysiumVM)
 cmake_minimum_required(VERSION 3.25)
 project(${PROJ_NAME})
 
