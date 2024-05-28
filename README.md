@@ -16,6 +16,10 @@ $ docker run --rm -it -v $(pwd)/examples/binaries/code.vm:/code.vm vm /virtual-m
 
 ![](/docs/img1.png)
 
+## Structure from Executable File
+
+![](/docs/img2.png)
+
 ## Assembly Instruction in this VM
 
 ISA|Ops Id|Ops Name|Parameters|Ops Size
