@@ -3,7 +3,7 @@
 #include <args/parsing.h>
 
 const args::arguments args::parse_argument(int argc, char** argv) { 
-    cxxopts::Options options("MyProgram", "One line description of MyProgram");
+    cxxopts::Options options("DreamspaceVM", "My DreamspaceVM for in future far away from Dream");
 
     options.add_options()
         ("m,max_memory_size", "int", cxxopts::value<uint64_t>()->default_value(std::to_string(4 * args::MB)))

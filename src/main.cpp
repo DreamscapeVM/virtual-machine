@@ -25,6 +25,9 @@ int execute(args::arguments args) {
 
 int main(int argc, char** argv) {  
     auto arg = args::parse_argument(argc, argv);
+    if (arg.verbose) { 
+        spdlog::info("")
+    }
     int result = execute(arg);
     if (result != 0) { 
         spdlog::error("between ops in software and ops cpu is different, CPU {}, in software {}", cpu_isa::allowable_list_ops, result);
