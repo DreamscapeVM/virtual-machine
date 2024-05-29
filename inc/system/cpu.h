@@ -22,7 +22,7 @@ public:
     
     // need to predefine into software program file
     // TODO: CHANGE IT!
-    void entry(register_data reg);
+    void entry();
 
     // for interpretor mode.
     // directly insert ops into like dram and register memory.

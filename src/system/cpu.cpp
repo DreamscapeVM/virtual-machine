@@ -25,11 +25,7 @@ void cpu::execute(const instruction* const data) {
     engine.get_ops(data->id)(data, reg.data(), mem.get_memory());
 }
 
-void cpu::entry(register_data reg) {
-    for (int i = 0; i < reg.size(); i++) { 
-        this->reg[i] = reg[i];
-    }
-    
+void cpu::entry() {
     int i = 0;
     while (true) { 
         auto start = std::chrono::high_resolution_clock::now();

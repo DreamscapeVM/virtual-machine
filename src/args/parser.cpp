@@ -14,24 +14,28 @@ const args::arguments args::parse_argument(int argc, char** argv) {
         ("h,help", "Print usage")
         ;
 
-    auto result = options.parse(argc, argv);
-    if (result.count("help"))
-    {
-      std::cout << options.help() << std::endl;
-      exit(0);
+    try { 
+        auto result = options.parse(argc, argv);
+        if (result.count("help"))
+        {
+            std::cout << options.help() << std::endl;
+            exit(0);
+        }
+
+        auto mem_size = result["max_memory_size"].as<uint64_t>();
+        auto reg_size = result["max_register_size"].as<uint64_t>();
+        auto ips = result["insturction_per_seconds"].as<uint64_t>();
+        auto path_software = result["path_of_software"].as<std::string>();
+        auto verbose = result["verbose"].as<bool>();
+
+        return args::arguments { 
+            .max_memory_size = mem_size,
+            .max_register_size = reg_size,
+            .path_of_software = path_software,
+            .insturction_per_seconds = ips,
+            .verbose = verbose
+        };
+    }catch (cxxopts::exceptions::exception e) { 
+        std::cout << options.help() << std::endl;
     }
-
-    auto mem_size = result["max_memory_size"].as<uint64_t>();
-    auto reg_size = result["max_register_size"].as<uint64_t>();
-    auto ips = result["insturction_per_seconds"].as<uint64_t>();
-    auto path_software = result["path_of_software"].as<std::string>();
-    auto verbose = result["verbose"].as<bool>();
-
-    return args::arguments { 
-        .max_memory_size = mem_size,
-        .max_register_size = reg_size,
-        .path_of_software = path_software,
-        .insturction_per_seconds = ips,
-        .verbose = verbose
-    };
 }

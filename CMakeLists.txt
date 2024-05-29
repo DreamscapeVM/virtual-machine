@@ -1,4 +1,4 @@
-SET(PROJ_NAME ElysiumVM)
+SET(PROJ_NAME DreamspaceVM)
 cmake_minimum_required(VERSION 3.25)
 project(${PROJ_NAME})
 
